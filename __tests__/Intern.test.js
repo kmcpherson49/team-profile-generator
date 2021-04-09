@@ -1,0 +1,1 @@
+// name, id, email, getName(), getId(), getEmail(), getRole() overridden to return 'Intern', school, getSchool()
