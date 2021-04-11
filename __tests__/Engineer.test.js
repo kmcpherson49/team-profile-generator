@@ -3,14 +3,14 @@
 const { expect, test } = require('@jest/globals');
 const Engineer = require('../lib/Engineer.js');
 
-test('can set github account via constructor', () => {
-    const testvalue = 'kmcpherson49'
+test('set github username', () => {
+    const testvalue = 'mikesmithdev'
     const eng = new Engineer('Mike', 1, 'mike@gmail.com', testvalue);
     expect(eng.github).toBe(testvalue);
 })
 
-test('getRole should return Engineer', () => {
+test('return Engineer', () => {
     const testvalue = 'Engineer'
-    const eng = new Engineer('Mike', 1, 'mike@gmail.com', 'kmcoherson49');
+    const eng = new Engineer('Mike', 1, 'mike@gmail.com', 'mikesmithdev');
     expect(eng.getRole()).toBe(testvalue);
 })
