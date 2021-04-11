@@ -10,6 +10,7 @@ const Intern = require('./lib/Intern.js');
 
 const teamInfo = [];
 
+
 const addMenu = () => {
     const promptManager = () => {
         inquirer.prompt([
@@ -36,6 +37,7 @@ const addMenu = () => {
         ]).then(answers => {
             const manager = new Manager(answers.name, answers.managerid, answers.email, answers.officenumber);
             teamInfo.push(manager);
+            console.log(teamInfo);
             // buildTeam()
             return (moreEmployee());
         }) 
@@ -52,6 +54,7 @@ const addMenu = () => {
                 return addOther();
             }
         })
+    
     }
 
     const addOther = () => {
@@ -62,8 +65,10 @@ const addMenu = () => {
                 message: "Which type of employee would you like to add?",
                 choices: ['Engineer', 'Intern']
             }
+
         ]).then(answers => {
-            if (answers.choices[0]) {
+            console.log(answers);
+            if (answers.choosetype === 'Engineer') {
                 return addEngineer();
             } else {
                 return addIntern();
@@ -96,6 +101,7 @@ const addMenu = () => {
         ]) .then(answers => {
             const engineer = new Engineer(answers.name, answers.engineerid, answers.email, answers.github);
             teamInfo.push(engineer);
+            console.log(teamInfo);
         })
     }
 
@@ -124,20 +130,28 @@ const addMenu = () => {
         ]) .then(answers => {
             const intern = new Intern(answers.name, answers.internid, answers.email, answers.school);
             teamInfo.push(intern);
+            console.log(teamInfo);
         })
     }
+   
     promptManager();
-    //moreEmployee();
+
 }
 
-function init() {
-    inquirer
-    .prompt(
-        addMenu
-    )
-    .then(answers => {
-        fs.writeFileSync("team-profile.html", generatePage(answers));
-    })
-}
+// function init() {
+//     inquirer
+//     .prompt(
+//         addMenu()
+//     )
+//     .then(answers => {
+//         fs.writeFileSync("team-profile.html", generatePage(answers));
+//     })
+// }
+
+fs.writeFileSync('team-profile.html', generatePage(teamInfo), function (err) {
+    if (err) throw err;
+    console.log('Saved!');
+  });
 
 addMenu();
+//init();
