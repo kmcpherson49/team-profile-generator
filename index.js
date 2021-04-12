@@ -37,8 +37,6 @@ const addMenu = () => {
         ]).then(answers => {
             const manager = new Manager(answers.name, answers.managerid, answers.email, answers.officenumber);
             teamInfo.push(manager);
-            console.log(teamInfo);
-            // buildTeam()
             return (moreEmployee());
         }) 
     }
@@ -50,9 +48,10 @@ const addMenu = () => {
                 message: "Would you like to add another employee?",
             }
         ]).then(answers => {
-            if (true) {
+            console.log(answers);
+            if (answers.addemployee === true) {
                 return addOther();
-            }
+            } else {makeHtml()};
         })
     
     }
@@ -101,7 +100,7 @@ const addMenu = () => {
         ]) .then(answers => {
             const engineer = new Engineer(answers.name, answers.engineerid, answers.email, answers.github);
             teamInfo.push(engineer);
-            console.log(teamInfo);
+            moreEmployee();
         })
     }
 
@@ -130,7 +129,7 @@ const addMenu = () => {
         ]) .then(answers => {
             const intern = new Intern(answers.name, answers.internid, answers.email, answers.school);
             teamInfo.push(intern);
-            console.log(teamInfo);
+            moreEmployee();
         })
     }
    
@@ -138,20 +137,13 @@ const addMenu = () => {
 
 }
 
-// function init() {
-//     inquirer
-//     .prompt(
-//         addMenu()
-//     )
-//     .then(answers => {
-//         fs.writeFileSync("team-profile.html", generatePage(answers));
-//     })
-// }
 
+const makeHtml = () => {
+    console.log('makeHtml');
 fs.writeFileSync('team-profile.html', generatePage(teamInfo), function (err) {
     if (err) throw err;
     console.log('Saved!');
   });
+}
 
 addMenu();
-//init();
